@@ -6,14 +6,26 @@
  - start date
  - end date
 
-###stage x
+###stage Two
  - page count
+ - start end Delta
+ - code smoothing
  - description
+
+
+###stage x
  - review
- - time taken
  - genre
+ - time not just raw date
+ - web scraping
+ - purchase information
+ - dealing with repeat entries
+ - single author multiple books
+ 
 
  
  #rev history
+ 0.3 - added actual datetime objects for start / end
  0.2 - added book deletion, formatting and flow adjustments
  0.1 - basic list, file i/o, author title, start & finish date (string)
+

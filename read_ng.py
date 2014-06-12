@@ -1,4 +1,4 @@
-# read.ng
+# read.ng - 0.3
 # python 2.7
 
 """
@@ -10,6 +10,7 @@ book tracking app
 """
 
 import cPickle as pickle
+import datetime as dt 
 import os
 
 
@@ -21,7 +22,7 @@ class book(object):
 		self.endDate = "..."
 
 	def __str__(self):
-		return self.title + " - " + self.author + " (" + self.startDate + " to " + self.endDate + ")"
+		return self.title + " - " + self.author + " (" + str(self.startDate) + " to " + str(self.endDate) + ")" 
 
 print "=" * 45
 print "=" * 45
@@ -44,11 +45,18 @@ while user_input != 'e':
 	print 'n to add, l to list, f to finish, d to delete, e to exit, c to cancel'
 	user_input = raw_input(":")
 	if user_input == "n":
-		user_input = raw_input("Add a book to the list?")
-		if user_input != "c":
+		user_input = raw_input("Add a book to the list? (y/n)")
+		if user_input != "c" or user_input != 'n':
 			title = raw_input("TITLE:")
 			author = raw_input("AUTHOR:")
-			startDate = raw_input("START DATE:")
+			user_input = raw_input("STARTED TODAY (y/n)?")
+			if user_input == 'y':
+				startDate = dt.date.today()
+			else:
+				year = int(raw_input("START YEAR:"))
+				month = int(raw_input("START MONTH:"))
+				day = int(raw_input("START DAY:"))
+				startDate = dt.date(year, month, day)
 			newBook = book(title, author, startDate)
 			bookList.append(newBook)
 			title, "-", author, "started on", startDate, "added to bookList."
@@ -69,7 +77,14 @@ while user_input != 'e':
 		title = raw_input("TITLE:")
 		for listed_book in bookList:
 			if listed_book.title == title:
-				listed_book.endDate = raw_input("END DATE:")
+				user_input = raw_input("Did you finish the book today? (y/n)?")
+				if user_input == 'y':
+					listed_book.endDate = dt.date.today()
+				else:
+					year = int(raw_input("START YEAR:"))
+					month = int(raw_input("START MONTH:"))
+					day = int(raw_input("START DAY:"))
+					listed_book.endDate = dt.date(year, month, day)
 	if user_input == 'l':
 		if bookList:
 			for listed_book in bookList:
