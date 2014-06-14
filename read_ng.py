@@ -14,7 +14,7 @@ import datetime as dt
 import os
 
 class bookList(object):
-	"""collection of books objects"""
+	"""collection of book objects"""
 	def __init__(self, name):
 		self.name = name
 		self.bookCount = 0
@@ -58,14 +58,25 @@ class bookList(object):
 
 class book(object):
 	"""a book"""
-	def __init__(self, title, author, startDate=""):
+	def __init__(self, title, author, pageCount, startDate="..."):
 		self.title = title
 		self.author = author
+		self.pageCount = pageCount
 		self.startDate = startDate
 		self.endDate = "..."
+		self.daysTaken = 0
+
+	def timeTaken(self):
+		if self.daysTaken > 0:
+			return self.daysTaken
+		elif self.endDate == "...":
+			return "Book does not currently have an end date."
+		else:
+			self.daysTaken = self.endDate - self.startDate
+			return self.daysTaken
 
 	def __str__(self):
-		return self.title + " - " + self.author + " (" + str(self.startDate) + " to " + str(self.endDate) + ")" 
+		return self.title + " - " + self.author + " [" + str(self.pageCount) + "pgs]" + " (" + str(self.startDate) + " to " + str(self.endDate) + ")" 
 
 print "=" * 45
 print "=" * 45
@@ -91,6 +102,7 @@ while user_input != 'e':
 		title = raw_input("TITLE:")
 		author = raw_input("AUTHOR:")
 		user_input = raw_input("STARTED TODAY (y/n)?")
+		pageCount = int(raw_input("NUMBER OF PAGES:"))
 		if user_input == 'y':
 			startDate = dt.date.today()
 		else:
@@ -98,7 +110,7 @@ while user_input != 'e':
 			month = int(raw_input("START MONTH:"))
 			day = int(raw_input("START DAY:"))
 			startDate = dt.date(year, month, day)
-		newBook = book(title, author, startDate)
+		newBook = book(title, author, pageCount, startDate)
 		My_Books.addBook(newBook)
 	if user_input == 'd':
 		title = raw_input("TITLE TO DELETE:")
@@ -108,6 +120,8 @@ while user_input != 'e':
 		My_Books.finishBook(title)
 	if user_input == 'l':
 		My_Books.listBooks()
+	if user_input == 'k':
+		print My_Books.books[My_Books.bookCount - 1].timeTaken()
 	if user_input == 'e':
 		pkl_out = open('my_books.pkl', 'wb')
 		pickle.dump(My_Books, pkl_out)
