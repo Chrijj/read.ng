@@ -1,4 +1,4 @@
-# read.ng - 0.4
+# read.ng - 0.6
 # python 2.7
 
 """
@@ -65,6 +65,12 @@ class book(object):
 		self.startDate = startDate
 		self.endDate = "..."
 		self.daysTaken = 0
+		self.sessions = []
+		self.currentPage = 0
+
+	def finishedSession(self, sessionDate, sessionPageUpto):
+		self.sessions.append((sessionDate, sessionPageUpto))
+		self.currentPage = sessionPageUpto
 
 	def timeTaken(self):
 		if self.daysTaken > 0:
@@ -120,8 +126,6 @@ while user_input != 'e':
 		My_Books.finishBook(title)
 	if user_input == 'l':
 		My_Books.listBooks()
-	if user_input == 'k':
-		print My_Books.books[My_Books.bookCount - 1].timeTaken()
 	if user_input == 'e':
 		pkl_out = open('my_books.pkl', 'wb')
 		pickle.dump(My_Books, pkl_out)

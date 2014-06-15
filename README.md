@@ -20,11 +20,14 @@
  - web scraping
  - purchase information
  - dealing with repeat entries
+ - allow books to be entitires by themselves not inherent to a list
+ - hash title/author for quick searching
  - single author multiple books
 
 
  
  #rev history
+ 0.6 - added beginnings to session recording
  0.5 - added pagcount, time delta beginnings
  0.4 - added bookList class
  0.3 - added actual datetime objects for start / end
