@@ -32,6 +32,11 @@ class bookList(object):
 		else:
 			print "No books exist in list %s" % self.name
 
+	def addSession(self, sessionDate, paegUpTo):
+		self.books[self.bookCount-1].finishedSession(sessionDate, pageUpTo)
+		print str(self.books[self.bookCount-1])
+		print "Currently up to page %s out of %s pages." % (self.books[self.bookCount-1].currentPage, self.books[self.bookCount-1].pageCount)
+
 	def finishBook(self, title):
 		for count, book in self.books.items():
 			if book.title == title:
@@ -102,13 +107,13 @@ user_input = ""
 
 while user_input != 'e':
 	print "-" * 55
-	print 'n to add, l to list, f to finish, d to delete, e to exit'
+	print 'n to add, l to list, s for session, f to finish, d to delete, e to exit'
 	user_input = raw_input(":")
 	if user_input == "n":
 		title = raw_input("TITLE:")
 		author = raw_input("AUTHOR:")
-		user_input = raw_input("STARTED TODAY (y/n)?")
 		pageCount = int(raw_input("NUMBER OF PAGES:"))
+		user_input = raw_input("STARTED TODAY (y/n)?")
 		if user_input == 'y':
 			startDate = dt.date.today()
 		else:
@@ -121,6 +126,17 @@ while user_input != 'e':
 	if user_input == 'd':
 		title = raw_input("TITLE TO DELETE:")
 		My_Books.removeBook(title)
+	if user_input == 's':
+		user_input = raw_input("SESSION WAS TODAY (y/n)?")
+		if user_input == 'y':
+			sessionDate = dt.date.today()
+		else:
+			year = int(raw_input("START YEAR:"))
+			month = int(raw_input("START MONTH:"))
+			day = int(raw_input("START DAY:"))
+			sessionDate = dt.date(year, month, day)
+		pageUpTo = int(raw_input("PAGE UP TO:"))
+		My_Books.addSession(sessionDate, pageUpTo)
 	if user_input == 'f':
 		title = raw_input("TITLE:")
 		My_Books.finishBook(title)
