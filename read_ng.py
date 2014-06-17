@@ -89,6 +89,20 @@ class book(object):
 	def __str__(self):
 		return self.title + " - " + self.author + " [" + str(self.pageCount) + "pgs]" + " (" + str(self.startDate) + " to " + str(self.endDate) + ")" 
 
+
+def bookHash(title, author, pageCount):
+	"""takes in basic book details and returns a simple,
+	readable form to identify book objects"""
+	titleHash = "".join(item[0].lower() for item in title.split())
+	authorHash = "".join(item[0].upper() for item in author.split())
+	return authorHash + "_" + titleHash + "_" + pageCount
+
+def getDate():
+	year = int(raw_input("START YEAR:"))
+	month = int(raw_input("START MONTH:"))
+	day = int(raw_input("START DAY:"))
+	return dt.date(year, month, day)
+
 print "=" * 45
 print "=" * 45
 print "Welcome to the book tracker"
@@ -117,10 +131,7 @@ while user_input != 'e':
 		if user_input == 'y':
 			startDate = dt.date.today()
 		else:
-			year = int(raw_input("START YEAR:"))
-			month = int(raw_input("START MONTH:"))
-			day = int(raw_input("START DAY:"))
-			startDate = dt.date(year, month, day)
+			startDate = getDate()
 		newBook = book(title, author, pageCount, startDate)
 		My_Books.addBook(newBook)
 	if user_input == 'd':
@@ -131,10 +142,7 @@ while user_input != 'e':
 		if user_input == 'y':
 			sessionDate = dt.date.today()
 		else:
-			year = int(raw_input("START YEAR:"))
-			month = int(raw_input("START MONTH:"))
-			day = int(raw_input("START DAY:"))
-			sessionDate = dt.date(year, month, day)
+			sessionDate = getDate()
 		pageUpTo = int(raw_input("PAGE UP TO:"))
 		My_Books.addSession(sessionDate, pageUpTo)
 	if user_input == 'f':

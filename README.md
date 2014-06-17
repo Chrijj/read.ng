@@ -27,6 +27,7 @@
 
  
  #rev history
+ 0.8 - bookHash added (prelim), input of date moved to a function
  0.7 - expanded out session useage
  0.6 - added beginnings to session recording
  0.5 - added pagcount, time delta beginnings
