@@ -33,9 +33,17 @@ class bookList(object):
 			print "No books exist in list %s" % self.name
 
 	def addSession(self, sessionDate, paegUpTo):
-		self.books[self.bookCount-1].finishedSession(sessionDate, pageUpTo)
-		print str(self.books[self.bookCount-1])
-		print "Currently up to page %s out of %s pages." % (self.books[self.bookCount-1].currentPage, self.books[self.bookCount-1].pageCount)
+		currentBook = self.books[self.bookCount-1]
+		if pageUpTo > currentBook.pageCount:
+			print "That is more than the number of pages in %s" % str(currentBook)
+		else:
+			currentBook.finishedSession(sessionDate, pageUpTo)
+			print str(currentBook)
+			if 	currentBook.pageCount == pageUpTo:
+				print "You have completed %s by %s." % (currentBook.title, currentBook.author)
+				currentBook.endDate = dt.date.today()
+			else:
+				print "Currently up to page %s out of %s pages." % (currentBook.currentPage, currentBook.pageCount)
 
 	def finishBook(self, title):
 		for count, book in self.books.items():
