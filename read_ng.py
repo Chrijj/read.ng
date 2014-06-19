@@ -1,17 +1,13 @@
-# read.ng - 0.6
+# read.ng - 1.0
 # python 2.7
 
 """
 book tracking app
- - title
- - author
- - start date
- - end date
+
 """
 
 import cPickle as pickle
 import datetime as dt 
-import os
 
 class bookList(object):
 	"""collection of book objects"""
@@ -71,10 +67,11 @@ class bookList(object):
 
 class book(object):
 	"""a book"""
-	def __init__(self, title, author, pageCount, startDate="..."):
+	def __init__(self, title, author, pageCount, uID, startDate="..."):
 		self.title = title
 		self.author = author
 		self.pageCount = pageCount
+		self.uID = uID
 		self.startDate = startDate
 		self.endDate = "..."
 		self.daysTaken = 0
@@ -103,7 +100,7 @@ def bookHash(title, author, pageCount):
 	readable form to identify book objects"""
 	titleHash = "".join(item[0].lower() for item in title.split())
 	authorHash = "".join(item[0].upper() for item in author.split())
-	return authorHash + "_" + titleHash + "_" + pageCount
+	return authorHash + "_" + titleHash + "_" + str(pageCount)
 
 def getDate():
 	year = int(raw_input("START YEAR:"))
@@ -115,19 +112,18 @@ print "=" * 45
 print "=" * 45
 print "Welcome to the book tracker"
 
-if os.path.isfile("my_books.pkl"):
-	try:
-		pkl_in = open('my_books.pkl', 'rb')
-		My_Books = pickle.load(pkl_in) 
-		pkl_in.close()
-	except OSError:
-		print "Problem loading from file"
-else:
+bookFile = "my_books.pkl"
+try:
+	pkl_in = open(bookFile, 'rb')
+	My_Books = pickle.load(pkl_in) 
+	pkl_in.close()
+	print "Book data loaded from file %s." % bookFile
+except IOError:
+	print "Problem loading from file %s." % bookFile
 	My_Books = bookList("My Books")
 
-user_input = ""
 
-while user_input != 'e':
+while True:
 	print "-" * 55
 	print 'n to add, l to list, s for session, f to finish, d to delete, e to exit'
 	user_input = raw_input(":")
@@ -140,7 +136,8 @@ while user_input != 'e':
 			startDate = dt.date.today()
 		else:
 			startDate = getDate()
-		newBook = book(title, author, pageCount, startDate)
+		uID = bookHash(title, author, pageCount)
+		newBook = book(title, author, pageCount, uID, startDate)
 		My_Books.addBook(newBook)
 	if user_input == 'd':
 		title = raw_input("TITLE TO DELETE:")
@@ -159,8 +156,10 @@ while user_input != 'e':
 	if user_input == 'l':
 		My_Books.listBooks()
 	if user_input == 'e':
-		pkl_out = open('my_books.pkl', 'wb')
+		pkl_out = open(bookFile, 'wb')
 		pickle.dump(My_Books, pkl_out)
 		pkl_out.close()	
+		print "Book data saved to file %s." % bookFile
+		raise SystemExit
 		exit
 		
