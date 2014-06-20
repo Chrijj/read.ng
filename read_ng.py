@@ -124,10 +124,18 @@ except IOError:
 
 
 while True:
-	print "-" * 55
-	print 'n to add, l to list, s for session, f to finish, d to delete, e to exit'
+	print "*****************************************"
+	print "***  1 - Add a new book"
+	print "***  2 - Detail a new session" 		 
+	print "***  3 - Finish reading a book"
+	print "***  4 - List all books"
+	print "***  5 - Delete a book"
+	print "***  0 - Save and exit"
+	print "*****************************************"
+
 	user_input = raw_input(":")
-	if user_input == "n":
+
+	if user_input == "1":
 		title = raw_input("TITLE:")
 		author = raw_input("AUTHOR:")
 		pageCount = int(raw_input("NUMBER OF PAGES:"))
@@ -139,10 +147,8 @@ while True:
 		uID = bookHash(title, author, pageCount)
 		newBook = book(title, author, pageCount, uID, startDate)
 		My_Books.addBook(newBook)
-	if user_input == 'd':
-		title = raw_input("TITLE TO DELETE:")
-		My_Books.removeBook(title)
-	if user_input == 's':
+
+	if user_input == '2':
 		user_input = raw_input("SESSION WAS TODAY (y/n)?")
 		if user_input == 'y':
 			sessionDate = dt.date.today()
@@ -150,12 +156,19 @@ while True:
 			sessionDate = getDate()
 		pageUpTo = int(raw_input("PAGE UP TO:"))
 		My_Books.addSession(sessionDate, pageUpTo)
-	if user_input == 'f':
+	
+	if user_input == '3':
 		title = raw_input("TITLE:")
 		My_Books.finishBook(title)
-	if user_input == 'l':
+
+	if user_input == '4':
 		My_Books.listBooks()
-	if user_input == 'e':
+
+	if user_input == '5':
+		title = raw_input("TITLE TO DELETE:")
+		My_Books.removeBook(title)
+	
+	if user_input == '0':
 		pkl_out = open(bookFile, 'wb')
 		pickle.dump(My_Books, pkl_out)
 		pkl_out.close()	
