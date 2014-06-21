@@ -1,4 +1,4 @@
-# read.ng - 1.0
+# read.ng - 1.1
 # python 2.7
 
 """
@@ -27,6 +27,23 @@ class bookList(object):
 				print str(eachBook)
 		else:
 			print "No books exist in list %s" % self.name
+
+	def editBook(self):
+		title = raw_input("TITLE OF BOOK TO EDIT:")
+		for count, book in self.books.items():
+			if book.title == title:
+				attribute = raw_input("ATTRIBUTE TO EDIT (title, author, pageCount):")
+				newAttribute = raw_input("NEW VALUE:")
+				if attribute == "pageCount":
+					book.pageCount = int(newAttribute)
+				elif attribute == "title":
+					book.title = newAttribute
+				elif attribute == "author":
+					book.author = newAttribute
+				else:
+					"Invalid attribute selected"
+				return
+		print "Cannot find any book of that title in the list."
 
 	def addSession(self, sessionDate, paegUpTo):
 		currentBook = self.books[self.bookCount-1]
@@ -129,7 +146,8 @@ while True:
 	print "***  2 - Detail a new session" 		 
 	print "***  3 - Finish reading a book"
 	print "***  4 - List all books"
-	print "***  5 - Delete a book"
+	print "***  5 - Edit a book"
+	print "***  6 - Delete a book"
 	print "***  0 - Save and exit"
 	print "*****************************************"
 
@@ -165,6 +183,11 @@ while True:
 		My_Books.listBooks()
 
 	if user_input == '5':
+		print "Editing book, currently listed:"
+		My_Books.listBooks()
+		My_Books.editBook()		
+
+	if user_input == '6':
 		title = raw_input("TITLE TO DELETE:")
 		My_Books.removeBook(title)
 	
