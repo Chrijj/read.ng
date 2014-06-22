@@ -1,4 +1,4 @@
-# read.ng - 1.1
+# read.ng - 1.2
 # python 2.7
 
 """
@@ -73,6 +73,12 @@ class bookList(object):
 				return
 		print "Could not find that title in %s." % self.name
 
+	def timeTaken(self):
+		if len(self.books) == 0:
+			"No books in the list"
+		else:
+			print [str(self.books[key]) + " " + self.books[key].timeTaken() + ' \n' for key in self.books]
+
 	def removeBook(self, title):
 		for count, book in self.books.items():
 			if book.title == title:
@@ -91,7 +97,7 @@ class book(object):
 		self.uID = uID
 		self.startDate = startDate
 		self.endDate = "..."
-		self.daysTaken = 0
+		self.daysTaken = dt.timedelta(days=0)
 		self.sessions = []
 		self.currentPage = 0
 
@@ -100,13 +106,13 @@ class book(object):
 		self.currentPage = sessionPageUpto
 
 	def timeTaken(self):
-		if self.daysTaken > 0:
-			return self.daysTaken
+		if self.daysTaken > dt.timedelta(days=0):
+			return str(self.daysTaken) + " days"
 		elif self.endDate == "...":
 			return "Book does not currently have an end date."
 		else:
 			self.daysTaken = self.endDate - self.startDate
-			return self.daysTaken
+			return str(self.daysTaken) + " days"
 
 	def __str__(self):
 		return self.title + " - " + self.author + " [" + str(self.pageCount) + "pgs]" + " (" + str(self.startDate) + " to " + str(self.endDate) + ")" 
@@ -148,6 +154,7 @@ while True:
 	print "***  4 - List all books"
 	print "***  5 - Edit a book"
 	print "***  6 - Delete a book"
+	print "***  7 - Time taken for books"
 	print "***  0 - Save and exit"
 	print "*****************************************"
 
@@ -188,8 +195,13 @@ while True:
 		My_Books.editBook()		
 
 	if user_input == '6':
+		print "Deleting book, currently listed:"
+		My_Books.listBooks()
 		title = raw_input("TITLE TO DELETE:")
 		My_Books.removeBook(title)
+
+	if user_input == '7':
+		My_Books.timeTaken()
 	
 	if user_input == '0':
 		pkl_out = open(bookFile, 'wb')

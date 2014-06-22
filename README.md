@@ -27,7 +27,8 @@
 
  
  #rev history
- 1.1 - added abilty to adit books
+ 1.2 - added listing of books with the time taken to read
+ 1.1 - added abilty to edit books
  1.0 - refactored file input and loop, removed os dependency, added uID, added SystemExit
  0.9 - elaborated the session code, tried to pretend i didn't need to make a database...
  0.8 - bookHash added (prelim), input of date moved to a function
