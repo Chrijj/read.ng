@@ -27,6 +27,7 @@
 
  
  #rev history
+ 1.3 - started adding list statistics, timeDeltas doesn't work
  1.2 - added listing of books with the time taken to read
  1.1 - added abilty to edit books
  1.0 - refactored file input and loop, removed os dependency, added uID, added SystemExit

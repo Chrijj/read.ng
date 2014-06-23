@@ -1,4 +1,4 @@
-# read.ng - 1.2
+# read.ng - 1.3
 # python 2.7
 
 """
@@ -15,6 +15,7 @@ class bookList(object):
 		self.name = name
 		self.bookCount = 0
 		self.books = {}
+		timeDeltas = []
 
 	def addBook(self, book):
 		self.books[self.bookCount] = book
@@ -70,6 +71,7 @@ class bookList(object):
 					day = int(raw_input("START DAY:"))
 					finishDate = dt.date(year, month, day)
 				self.books[count].endDate = finishDate
+				self.timeDeltas.append(self.books[count].timeTaken())
 				return
 		print "Could not find that title in %s." % self.name
 
@@ -87,6 +89,15 @@ class bookList(object):
 					del self.books[count] 
 				else:
 					"Deletion operation cancelled."
+
+	def bookListStats(self):
+		print "*" * 55
+		print "Statistics for %s" % self.name
+		print "-" * 55
+		print "%s book/s in list" % str(self.bookCount - 1)
+		print "Average length is %s" % str(sum([self.books[x].pageCount for x in self.books]) / len(self.books))
+		print "Average time taken is %s" % str(sum([self.books[x].timeTaken() for x in self.books if self.books[x].endDate != "..."]) / len(self.books))
+
 
 class book(object):
 	"""a book"""
@@ -155,6 +166,7 @@ while True:
 	print "***  5 - Edit a book"
 	print "***  6 - Delete a book"
 	print "***  7 - Time taken for books"
+	print "***  8 - Statistics"
 	print "***  0 - Save and exit"
 	print "*****************************************"
 
@@ -202,6 +214,9 @@ while True:
 
 	if user_input == '7':
 		My_Books.timeTaken()
+
+	if user_input == '8':
+		My_Books.bookListStats()
 	
 	if user_input == '0':
 		pkl_out = open(bookFile, 'wb')
