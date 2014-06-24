@@ -24,9 +24,14 @@
  - hash title/author for quick searching
  - single author multiple books
 
+#known issues
+ - test cases needed
+ - check uID to avoid duplicates
+ - time taken print formatting
 
- 
+
  #rev history
+ 1.4 - fixed troublesome datetime bug in statistics due to returning of strings!
  1.3 - started adding list statistics, timeDeltas doesn't work
  1.2 - added listing of books with the time taken to read
  1.1 - added abilty to edit books

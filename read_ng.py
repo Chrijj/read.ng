@@ -1,4 +1,4 @@
-# read.ng - 1.3
+# read.ng - 1.4
 # python 2.7
 
 """
@@ -15,7 +15,7 @@ class bookList(object):
 		self.name = name
 		self.bookCount = 0
 		self.books = {}
-		timeDeltas = []
+		self.timeDeltas = []
 
 	def addBook(self, book):
 		self.books[self.bookCount] = book
@@ -79,7 +79,7 @@ class bookList(object):
 		if len(self.books) == 0:
 			"No books in the list"
 		else:
-			print [str(self.books[key]) + " " + self.books[key].timeTaken() + ' \n' for key in self.books]
+			print [str(self.books[key]) + " " + str(self.books[key].timeTaken()) + " days" for key in self.books]
 
 	def removeBook(self, title):
 		for count, book in self.books.items():
@@ -96,7 +96,7 @@ class bookList(object):
 		print "-" * 55
 		print "%s book/s in list" % str(self.bookCount - 1)
 		print "Average length is %s" % str(sum([self.books[x].pageCount for x in self.books]) / len(self.books))
-		print "Average time taken is %s" % str(sum([self.books[x].timeTaken() for x in self.books if self.books[x].endDate != "..."]) / len(self.books))
+		print "Average time taken is ", sum(self.timeDeltas, dt.timedelta(0)) / len(self.timeDeltas)
 
 
 class book(object):
@@ -118,12 +118,12 @@ class book(object):
 
 	def timeTaken(self):
 		if self.daysTaken > dt.timedelta(days=0):
-			return str(self.daysTaken) + " days"
+			return self.daysTaken
 		elif self.endDate == "...":
 			return "Book does not currently have an end date."
 		else:
 			self.daysTaken = self.endDate - self.startDate
-			return str(self.daysTaken) + " days"
+			return self.daysTaken
 
 	def __str__(self):
 		return self.title + " - " + self.author + " [" + str(self.pageCount) + "pgs]" + " (" + str(self.startDate) + " to " + str(self.endDate) + ")" 
