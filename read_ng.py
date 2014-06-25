@@ -1,4 +1,4 @@
-# read.ng - 1.4
+# read.ng - 1.5
 # python 2.7
 
 """
@@ -16,11 +16,17 @@ class bookList(object):
 		self.bookCount = 0
 		self.books = {}
 		self.timeDeltas = []
+		self.uIDs = {}
 
 	def addBook(self, book):
-		self.books[self.bookCount] = book
-		book.title, "-", book.author, "started on", book.startDate, "added to bookList."
-		self.bookCount += 1
+		if book.uID in self.uIDs.values():
+			print "BOOK NOT ADDED"
+			print "That book already exists within the list"
+		else:
+			self.books[self.bookCount] = book
+			self.uIDs[self.bookCount] = book.uID
+			book.title, "-", book.author, "started on", book.startDate, "added to bookList."
+			self.bookCount += 1
 
 	def listBooks(self):
 		if self.books:

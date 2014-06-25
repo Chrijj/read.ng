@@ -26,12 +26,14 @@
 
 #known issues
  - test cases needed
- - check uID to avoid duplicates
+ - streamline date entry
  - time taken print formatting
+ - replace bookCount with uID
 
 
  #rev history
- 1.4 - fixed troublesome datetime bug in statistics due to returning of strings!
+ 1.5 - added check for duplicate items
+ 1.4 - fixed troublesome datetime bug in statistics due to function returning a string!
  1.3 - started adding list statistics, timeDeltas doesn't work
  1.2 - added listing of books with the time taken to read
  1.1 - added abilty to edit books
@@ -45,4 +47,6 @@
  0.3 - added actual datetime objects for start / end
  0.2 - added book deletion, formatting and flow adjustments
  0.1 - basic list, file i/o, author title, start & finish date (string)
+
+
 
