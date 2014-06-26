@@ -32,6 +32,7 @@
 
 
  #rev history
+ 1.6 - added few basic test cases
  1.5 - added check for duplicate items
  1.4 - fixed troublesome datetime bug in statistics due to function returning a string!
  1.3 - started adding list statistics, timeDeltas doesn't work

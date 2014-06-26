@@ -1,4 +1,4 @@
-# read.ng - 1.5
+# read.ng - 1.6
 # python 2.7
 
 """
@@ -162,6 +162,14 @@ except IOError:
 	print "Problem loading from file %s." % bookFile
 	My_Books = bookList("My Books")
 
+########################################
+### TESTING SECTION
+# newBook = book("The Bible", "Jesus", 400, bookHash("The Bible", "Jesus", 400), dt.date(2014, 06, 14))
+# My_Books.addBook(newBook)
+# newBook = book("The Trial", "Franz Kafka", 265, bookHash("The Trial", "Franz Kafka", 265), dt.date(2014, 04, 12))
+# My_Books.addBook(newBook)
+# print My_Books.bookListStats
+########################################
 
 while True:
 	print "*****************************************"
