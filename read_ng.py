@@ -25,8 +25,8 @@ class bookList(object):
 		else:
 			self.books[self.bookCount] = book
 			self.uIDs[self.bookCount] = book.uID
-			book.title, "-", book.author, "started on", book.startDate, "added to bookList."
 			self.bookCount += 1
+			print "%s by %s (%d pages) was added successfully." % (book.title, book.author, book.pageCount)
 
 	def listBooks(self):
 		if self.books:
@@ -143,10 +143,26 @@ def bookHash(title, author, pageCount):
 	return authorHash + "_" + titleHash + "_" + str(pageCount)
 
 def getDate():
-	year = int(raw_input("START YEAR:"))
-	month = int(raw_input("START MONTH:"))
-	day = int(raw_input("START DAY:"))
-	return dt.date(year, month, day)
+	userDate = raw_input("ENTER DATE (yyyy/mm/dd):")
+	inputDate = userDate.split("/")
+	return dt.date(int(inputDate[0]), int(inputDate[1]), int(inputDate[2]))
+
+
+def readngInstructions():
+	print "*****************************************"
+	print "***  1 - Add a new book"
+	print "***  2 - Detail a new session" 		 
+	print "***  3 - Finish reading a book"
+	print "***"
+	print "***  4 - List all books"
+	print "***  5 - Edit a book"
+	print "***  6 - Delete a book"
+	print "***"
+	print "***  7 - Time taken for books"
+	print "***  8 - Statistics"
+	print "***"
+	print "***  0 - Save and exit"
+	print "*****************************************"
 
 print "=" * 45
 print "=" * 45
@@ -171,18 +187,9 @@ except IOError:
 # print My_Books.bookListStats
 ########################################
 
+readngInstructions()
+
 while True:
-	print "*****************************************"
-	print "***  1 - Add a new book"
-	print "***  2 - Detail a new session" 		 
-	print "***  3 - Finish reading a book"
-	print "***  4 - List all books"
-	print "***  5 - Edit a book"
-	print "***  6 - Delete a book"
-	print "***  7 - Time taken for books"
-	print "***  8 - Statistics"
-	print "***  0 - Save and exit"
-	print "*****************************************"
 
 	user_input = raw_input(":")
 
@@ -239,4 +246,10 @@ while True:
 		print "Book data saved to file %s." % bookFile
 		raise SystemExit
 		exit
+
+	else:
+		print "That was not a valid input"
+		user_input = raw_input("Would you like to see the instructions? (y/n):")
+		if user_input == "y":
+			readngInstructions()
 		
