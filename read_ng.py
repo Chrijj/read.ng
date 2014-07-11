@@ -178,15 +178,6 @@ except IOError:
 	print "Problem loading from file %s." % bookFile
 	My_Books = bookList("My Books")
 
-########################################
-### TESTING SECTION
-# newBook = book("The Bible", "Jesus", 400, bookHash("The Bible", "Jesus", 400), dt.date(2014, 06, 14))
-# My_Books.addBook(newBook)
-# newBook = book("The Trial", "Franz Kafka", 265, bookHash("The Trial", "Franz Kafka", 265), dt.date(2014, 04, 12))
-# My_Books.addBook(newBook)
-# print My_Books.bookListStats
-########################################
-
 readngInstructions()
 
 while True:
@@ -197,13 +188,16 @@ while True:
 		title = raw_input("TITLE:")
 		author = raw_input("AUTHOR:")
 		pageCount = int(raw_input("NUMBER OF PAGES:"))
-		user_input = raw_input("STARTED TODAY (y/n)?")
-		if user_input == 'y':
-			startDate = dt.date.today()
-		else:
-			startDate = getDate()
 		uID = bookHash(title, author, pageCount)
-		newBook = book(title, author, pageCount, uID, startDate)
+		if raw_input("STARTED BOOK?(y/n)") == 'y':
+			if raw_input("STARTED TODAY (y/n)?") == 'y':
+				startDate = dt.date.today()
+			else:	
+				startDate = getDate()
+			newBook = book(title, author, pageCount, uID, startDate)
+		else:
+			newBook = book(title, author, pageCount, uID)	
+		
 		My_Books.addBook(newBook)
 
 	if user_input == '2':
@@ -247,7 +241,7 @@ while True:
 		raise SystemExit
 		exit
 
-	else:
+	elif user_input not in str(range(9)):
 		print "That was not a valid input"
 		user_input = raw_input("Would you like to see the instructions? (y/n):")
 		if user_input == "y":
